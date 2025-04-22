@@ -5,7 +5,7 @@ export const FormLeft = () => {
   return (
     <section className="w-full lg:w-[60%] px-6 py-10 md:px-10 space-y-6">
       <MotionWrapper>
-        <p className="text-sm  font-semibold text-orange-500 uppercase">
+        <p className="text-  font-semibold text-orange-500 uppercase tracking-widest" style={{ fontFamily: 'Poppins, sans-serif' }}>
           Welcome to VJC Foundation
         </p>
       </MotionWrapper>
@@ -17,10 +17,10 @@ export const FormLeft = () => {
       </MotionWrapper>
 
       <MotionWrapper>
-        <p className="text-gray-500">
+        <p className="text-gray-500 tracking-widest " style={{ fontFamily: 'Roboto, sans-serif' }}>
         Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.
         </p>
-        <p className="text-gray-500">
+        <p className="text-gray-500 mt-6 tracking-widest" style={{ fontFamily: 'Roboto, sans-serif' }}>
         A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.
         </p>
       </MotionWrapper>

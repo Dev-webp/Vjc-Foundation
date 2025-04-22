@@ -8,7 +8,7 @@ export const Form = () => {
   return (
     <aside className="relative w-full lg:w-1/2 bg-[#2e2a18] text-white px-6 py-8 md:px-10 md:py-12 flex flex-col gap-6 sm:px-3 max-w-full">
       {/* Floating Stats Box */}
-      <MotionWrapper>
+      
         <div className="absolute -top-20 right-0 md:-top-24 w-full z-30">
           <div className="flex items-center gap-4 lg:gap-6 bg-sky-600 backdrop-blur-sm px-6 py-4 rounded-t-lg shadow-md w-full">
             <HeartHandshake className="w-12 h-12 md:w-16 md:h-16 text-yellow-400" />
@@ -20,9 +20,7 @@ export const Form = () => {
             </div>
           </div>
         </div>
-      </MotionWrapper>
-
-      <MotionWrapper>
+        <MotionWrapper>
         <div className="leading-8">
           <p className="text-sm text-orange-400 uppercase">Donate Now</p>
           <h2 className="text-2xl font-[cursive] mt-4 font-bold leading-snug">
