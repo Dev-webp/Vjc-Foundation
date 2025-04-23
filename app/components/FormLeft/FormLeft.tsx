@@ -28,19 +28,19 @@ export const FormLeft = () => {
       <MotionWrapper>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 pt-4">
           <div className="text-center rounded-lg bg-white py-10 hover:bg-sky-600 hover:text-white transition-colors duration-300">
-            <div className="bg-[#d49d35] w-20 h-20 mx-auto rounded-full flex items-center justify-center text-white text-2xl">
+            <div className="bg-orange-500 w-20 h-20 mx-auto rounded-full flex items-center justify-center text-white text-2xl">
               <FaHandsHelping />
             </div>
             <p className="pt-3 font-medium">Start Donating</p>
           </div>
           <div className="text-center rounded-lg bg-white py-10 hover:bg-sky-600 hover:text-white transition-colors duration-300">
-            <div className="bg-[#d49d35] w-20 h-20 mx-auto rounded-full flex items-center justify-center text-white text-2xl">
+            <div className="bg-orange-500 w-20 h-20 mx-auto rounded-full flex items-center justify-center text-white text-2xl">
               <FaUsers />
             </div>
             <p className="pt-3 font-medium">Join Our Community</p>
           </div>
           <div className="text-center rounded-lg bg-white py-10 hover:bg-sky-600 hover:text-white transition-colors duration-300">
-            <div className="bg-[#d49d35] w-20 h-20 mx-auto rounded-full flex items-center justify-center text-white text-2xl">
+            <div className="bg-orange-500 w-20 h-20 mx-auto rounded-full flex items-center justify-center text-white text-2xl">
               <FaHandHoldingHeart />
             </div>
             <p className="pt-3 font-medium">Be A Volunteer</p>
