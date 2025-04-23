@@ -132,10 +132,23 @@ export default function Navbar() {
                   href={currentContent.buttonLink}
                   initial={{ scale: 0.9, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: 1.2, duration: 0.6 }}
-                  className="mt-6 inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-1 px-6 rounded-full shadow-lg transition"
+                  whileHover={{ scale: 1.15 }}
+                  transition={{
+                    delay: 1.2,
+                    duration: 0.3,
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 10,
+                  }}
+                  className="relative inline-block mt-6 font-semibold text-white bg-orange-500 rounded-full overflow-hidden shadow-lg group"
                 >
-                  {currentContent.buttonText}
+                  {/* Swipe-in background on hover */}
+                  <span className="absolute inset-0 w-full h-full bg-orange-600 transform scale-x-0 origin-left transition-transform duration-200 ease-out group-hover:scale-x-100 z-0" />
+
+                  {/* Glowing text on hover */}
+                  <span className="relative z-10 px-6 py-1 inline-block transition duration-200 group-hover:drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]">
+                    {currentContent.buttonText}
+                  </span>
                 </motion.a>
               </div>
             </div>
@@ -192,24 +205,34 @@ export default function Navbar() {
 
         <div className="ml-auto flex items-center gap-4">
           {/* Desktop Button */}
-          <Link
-            href="/joinus"
-            className="hidden lg:inline-block px-6 py-2.5 text-sm bg-orange-500 text-white font-semibold rounded-full shadow-md transition duration-300 transform hover:scale-105 hover:shadow-orange-400/50 hover:shadow-lg"
+          <motion.div
+            whileHover={{ scale: 1.05, y: -2 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            className="relative hidden lg:inline-block mt-2"
           >
-            <span className="inline-block transition-transform duration-300 group-hover:scale-110">
-              Join Us!
-            </span>
-          </Link>
+            <Link
+              href="/joinus"
+              className="relative inline-block px-6 py-2.5 text-sm font-semibold text-white bg-orange-500 rounded-full overflow-hidden group"
+            >
+              <span className="absolute inset-0 w-full h-full bg-orange-600 transform scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100 z-0" />
+              <span className="relative z-10">Join Us!</span>
+            </Link>
+          </motion.div>
 
           {/* Mobile Button */}
-          <Link
-            href="/joinus"
-            className="lg:hidden inline-block px-4.5 py-2 text-xs bg-orange-500 text-white font-semibold rounded-full shadow-md transition duration-300 transform hover:scale-105 hover:shadow-orange-400/50 hover:shadow-lg"
+          <motion.div
+            whileHover={{ scale: 1.05, y: -2 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            className="relative lg:hidden inline-block mt-2"
           >
-            <span className="inline-block transition-transform duration-300 group-hover:scale-110">
-              Join Us!
-            </span>
-          </Link>
+            <Link
+              href="/joinus"
+              className="relative inline-block px-4.5 py-2 text-xs font-semibold text-white bg-orange-500 rounded-full overflow-hidden group"
+            >
+              <span className="absolute inset-0 w-full h-full bg-orange-600 transform scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100 z-0" />
+              <span className="relative z-10">Join Us!</span>
+            </Link>
+          </motion.div>
 
           <motion.button
             className="block lg:hidden"

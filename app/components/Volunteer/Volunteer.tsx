@@ -33,16 +33,16 @@ const VolunteerCard: React.FC<VolunteerCardProps> = ({ name, title, image, descr
       <h3 className="text-xl font-semibold mt-4">{name}</h3>
       <p className="text-orange-500 font-semibold mb-4">{title}</p>
       <div className="flex justify-center gap-4 text-white text-lg mb-4">
-        <div className="bg-yellow-500 p-2 rounded-full hover:scale-110 transition">
+        <div className="bg-yellow-500 p-2 cursor-pointer rounded-full hover:scale-110 transition">
           <FaTwitter />
         </div>
-        <div className="bg-yellow-500 p-2 rounded-full hover:scale-110 transition">
+        <div className="bg-yellow-500 p-2 cursor-pointer rounded-full hover:scale-110 transition">
           <FaFacebookF />
         </div>
-        <div className="bg-yellow-500 p-2 rounded-full hover:scale-110 transition">
+        <div className="bg-yellow-500 p-2 cursor-pointer rounded-full hover:scale-110 transition">
           <FaGoogle />
         </div>
-        <div className="bg-yellow-500 p-2 rounded-full hover:scale-110 transition">
+        <div className="bg-yellow-500 p-2 cursor-pointer rounded-full hover:scale-110 transition">
           <FaInstagram />
         </div>
       </div>

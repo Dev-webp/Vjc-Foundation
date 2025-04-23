@@ -47,7 +47,7 @@ const PostCards = () => {
       <h1 className="text-4xl text-center md:text-5xl pt-3 font-semibold mb-6 font-handwritten">
         Recent From Blog
       </h1>
-      <div className="grid gap-8 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+      <div className="grid gap-8 mt-12 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
         {posts.map((post, idx) => {
           const ref = useRef(null);
           const isInView = useInView(ref, { once: true });

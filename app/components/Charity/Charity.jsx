@@ -41,7 +41,7 @@ const FixedBackgroundComponent = () => {
               Intention
             </h1>
             <motion.button
-              className="mt-6 tracking-widest py-2 px-6 bg-orange-600 text-white font-semibold rounded-lg transition-all duration-300 ease-in-out transform hover:bg-orange-700 hover:scale-105 hover:shadow-xl focus:outline-none"
+              className="mt-6 tracking-widest cursor-pointer py-2 px-6 bg-orange-600 text-white font-semibold rounded-lg transition-all duration-300 ease-in-out transform hover:bg-orange-700 hover:scale-105 hover:shadow-xl focus:outline-none"
               style={{ fontFamily: "Poppins, sans-serif" }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
