@@ -137,7 +137,7 @@ const SlideSection = () => {
               <AnimatePresence key={slide.id}>
                 <motion.div
                   key={slide.id}
-                  className="bg-white p-6 rounded-lg shadow-lg"
+                  className="group bg-white pt-6 rounded-lg shadow-lg"
                   initial={{ x: 100, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   exit={{ x: -100, opacity: 0 }}
@@ -146,28 +146,33 @@ const SlideSection = () => {
                   <img
                     src={slide.image}
                     alt={slide.title}
-                    className="w-full h-96 object-cover rounded-lg mb-4"
+                    className="w-full h-96 px-6 object-cover rounded-lg mb-4"
                   />
-                  <h2 className="text-2xl font-bold text-gray-800 mb-2">{slide.category}</h2>
-                  <h3 className="text-xl font-semibold text-orange-600 mb-4">{slide.title}</h3>
-                  <p className="text-gray-600 mb-6">{slide.desc}</p>
-                  <div className="mb-4">
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div
-                        className="bg-sky-500 h-2 rounded-full"
-                        style={{ width: `${percentage}%` }}
-                      />
-                    </div>
-                    <div className="text-right mt-1 text-sm font-medium text-sky-500">
-                      {percentage}%
-                    </div>
-                  </div>
-                  <div className="flex justify-between text-gray-700 text-sm">
-                    <div>
-                      <span className="font-bold">Raised:</span> ${slide.raised.toLocaleString()}
-                    </div>
-                    <div>
-                      <span className="font-bold">Goal:</span> ${slide.goal.toLocaleString()}
+                  <h2 className="text-2xl font-bold px-6 text-gray-800 mb-2">{slide.category}</h2>
+                  <h3 className="text-xl font-semibold px-6 text-orange-600 mb-4">{slide.title}</h3>
+                  <p className="text-gray-600 mb-6 px-6">{slide.desc}</p>
+
+                  <div className="group-hover:bg-orange-400 px-2 w-full mt-4">
+                    <div className="p-4">
+                      <div className="mb-2">
+                        <div className="w-full bg-gray-300 rounded-full h-2">
+                          <div
+                            className="bg-sky-500 h-2 rounded-full"
+                            style={{ width: `${percentage}%` }}
+                          />
+                        </div>
+                        <div className="text-right mt-1 text-sm font-medium text-sky-500">
+                          {percentage}%
+                        </div>
+                      </div>
+                      <div className="flex justify-between text-gray-700 text-sm">
+                        <div>
+                          <span className="font-bold">Raised:</span> ${slide.raised.toLocaleString()}
+                        </div>
+                        <div>
+                          <span className="font-bold">Goal:</span> ${slide.goal.toLocaleString()}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </motion.div>

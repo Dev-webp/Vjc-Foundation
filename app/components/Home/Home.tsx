@@ -3,6 +3,10 @@ import { Form } from "../Form/Form";
 import { FormLeft } from "../FormLeft/FormLeft";
 import Statistics from "../Statistics/Statistics";
 import Causes from "../Causes/Causes"
+import Charity from "../Charity/Charity"
+import Volunteer from "../Volunteer/Volunteer"
+import Testimonal from "../Testimonal/Testimonal"
+import Children  from "../Children/Children";
 
 const Home = () => {
   return (
@@ -14,6 +18,10 @@ const Home = () => {
       <>
         <Statistics />
         <Causes></Causes>
+        <Charity></Charity>
+       <Volunteer></Volunteer>
+       <Testimonal></Testimonal>
+       <Children></Children>
       </>
     </main>
   );

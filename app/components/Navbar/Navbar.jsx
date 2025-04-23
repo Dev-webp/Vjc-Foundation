@@ -191,18 +191,24 @@ export default function Navbar() {
         </div>
 
         <div className="ml-auto flex items-center gap-4">
+          {/* Desktop Button */}
           <Link
             href="/joinus"
-            className="hidden lg:inline-block px-6 py-2.5 text-sm bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-full shadow-md transition duration-300"
+            className="hidden lg:inline-block px-6 py-2.5 text-sm bg-orange-500 text-white font-semibold rounded-full shadow-md transition duration-300 transform hover:scale-105 hover:shadow-orange-400/50 hover:shadow-lg"
           >
-            Join Us!
+            <span className="inline-block transition-transform duration-300 group-hover:scale-110">
+              Join Us!
+            </span>
           </Link>
 
+          {/* Mobile Button */}
           <Link
             href="/joinus"
-            className="lg:hidden inline-block px-4.5 py-2 text-xs bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-full shadow-md transition duration-300"
+            className="lg:hidden inline-block px-4.5 py-2 text-xs bg-orange-500 text-white font-semibold rounded-full shadow-md transition duration-300 transform hover:scale-105 hover:shadow-orange-400/50 hover:shadow-lg"
           >
-            Join Us!
+            <span className="inline-block transition-transform duration-300 group-hover:scale-110">
+              Join Us!
+            </span>
           </Link>
 
           <motion.button
