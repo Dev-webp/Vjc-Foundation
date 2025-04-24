@@ -1,5 +1,7 @@
-import Image from 'next/image';
+"use client";
 
+import Image from 'next/image';
+import { motion } from 'framer-motion';
 import {
   FaTwitter,
   FaFacebookF,
@@ -16,7 +18,12 @@ const Footer = () => {
     <footer className="bg-gray-900 text-white font-sans px-6 lg:px-20 xl:px-32 pt-16 pb-8">
       <div className="grid md:grid-cols-3 gap-10 mb-12">
         {/* Left Column */}
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
           <Image
             src="/assets/vjc-logo.png"
             alt="VJC Foundation Logo"
@@ -24,12 +31,9 @@ const Footer = () => {
             height={60}
             className="mb-6"
           />
-
           <p className="text-gray-300 leading-relaxed">
             Far far away, behind the word mountains, far from the countries
-            Vokalia and Consonantia, there live the blind texts. Separated they
-            live in Bookmarksgrove right at the coast of the Semantics, a large
-            language ocean.
+            Vokalia and Consonantia, there live the blind texts...
           </p>
           <div className="flex gap-3 mt-6">
             <button className="bg-orange-400 cursor-pointer p-2 rounded text-white hover:bg-orange-500 transition">
@@ -42,18 +46,25 @@ const Footer = () => {
               <FaInstagram />
             </button>
           </div>
-        </div>
+        </motion.div>
 
         {/* Middle Column - Recent Posts */}
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
           <h3 className="text-lg font-semibold mb-4">Recent Posts</h3>
           <div className="space-y-6">
             {[1, 2].map((_, i) => (
               <div key={i} className="flex items-start gap-4">
-                <img
+                <Image
                   src={`/assets/blog${i + 1}.jpg`}
                   alt="Post"
-                  className="w-16 h-16 object-cover rounded"
+                  width={72}
+                  height={72}
+                  className="object-cover rounded"
                 />
                 <div>
                   <p className="flex items-center text-gray-400 text-sm gap-2">
@@ -66,10 +77,15 @@ const Footer = () => {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Right Column - Contact Info */}
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+        >
           <h3 className="text-lg font-semibold mb-4">Have a Questions?</h3>
           <div className="space-y-4 text-gray-300">
             <p className="flex items-start gap-3">
@@ -83,7 +99,7 @@ const Footer = () => {
               <FaPaperPlane /> info@yourdomain.com
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Bottom Footer */}

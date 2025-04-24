@@ -1,6 +1,7 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
-import { motion, useAnimation, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef, useMemo } from "react";
+import { motion, useAnimation } from "framer-motion";
+import Image from "next/image";
 
 const SlideSection = () => {
   const slides = [
@@ -57,71 +58,50 @@ const SlideSection = () => {
   const sectionRef = useRef(null);
 
   const nextSlide = () => {
-    const next = (currentIndex + 1) % slides.length;
-    setCurrentIndex(next);
+    setCurrentIndex((prev) => (prev + 1) % slides.length);
   };
 
   useEffect(() => {
     const interval = setInterval(nextSlide, 4000);
     return () => clearInterval(interval);
-  }, [currentIndex]);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          controls.start({ opacity: 1, y: 0, transition: { duration: 1 } });
-        } else {
-          controls.start({ opacity: 0, y: 50 });
-        }
+        controls.start(entry.isIntersecting
+          ? { opacity: 1, y: 0, transition: { duration: 1 } }
+          : { opacity: 0, y: 50 });
       },
       { threshold: 0.5 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => {
-      if (sectionRef.current) observer.unobserve(sectionRef.current);
-    };
+    return () => observer.disconnect();
   }, [controls]);
 
   useEffect(() => {
     const updateSlideCount = () => {
       const width = window.innerWidth;
-      if (width >= 1024) {
-        setSlideCount(3);
-      } else if (width >= 768) {
-        setSlideCount(2);
-      } else {
-        setSlideCount(1);
-      }
+      setSlideCount(width >= 1024 ? 3 : width >= 768 ? 2 : 1);
     };
 
     updateSlideCount();
-    window.addEventListener("resize", updateSlideCount);
+    window.addEventListener("resize", updateSlideCount, { passive: true });
     return () => window.removeEventListener("resize", updateSlideCount);
   }, []);
 
-  const getVisibleSlides = () => {
-    let visible = [];
-    for (let i = 0; i < slideCount; i++) {
-      const index = (currentIndex + i) % slides.length;
-      visible.push(slides[index]);
-    }
-    return visible;
-  };
-
-  const visibleSlides = getVisibleSlides();
+  const visibleSlides = useMemo(() => {
+    return Array.from({ length: slideCount }, (_, i) => slides[(currentIndex + i) % slides.length]);
+  }, [currentIndex, slideCount, slides]);
 
   return (
-    <div className="flex flex-col bg-[#faf6f0] items-center py-12" ref={sectionRef}>
+    <div ref={sectionRef} className="flex flex-col bg-[#faf6f0] items-center py-12">
       <motion.div
         className="text-center mb-10"
         animate={controls}
         initial={{ opacity: 0, y: 50 }}
       >
-        <p
-          className="font-semibold text-orange-500 uppercase tracking-widest"
-          style={{ fontFamily: "Poppins, sans-serif" }}
-        >
+        <p className="font-semibold text-orange-500 uppercase tracking-widest" style={{ fontFamily: "Poppins, sans-serif" }}>
           Our Causes
         </p>
         <h1 className="text-4xl mt-4 md:text-5xl xl:text-6xl font-bold font-[cursive] leading-snug">
@@ -131,57 +111,58 @@ const SlideSection = () => {
 
       <div className="relative w-full max-w-7xl px-4">
         <div className={`grid grid-cols-1 ${slideCount === 2 ? "md:grid-cols-2" : "md:grid-cols-3"} gap-6`}>
-          {visibleSlides.map((slide) => {
+          {visibleSlides.map((slide, index) => {
             const percentage = Math.round((slide.raised / slide.goal) * 100);
             return (
-              <AnimatePresence key={slide.id}>
-                <motion.div
-                  key={slide.id}
-                  className="group bg-white pt-6 rounded-lg shadow-lg"
-                  initial={{ x: 100, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  exit={{ x: -100, opacity: 0 }}
-                  transition={{ duration: 0.6, ease: "easeInOut" }}
-                >
-                  <img
+              <motion.div
+                key={slide.id}
+                className="group bg-white pt-6 rounded-lg shadow-lg"
+                initial={{ x: 100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: -100, opacity: 0 }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+              >
+                <div className="relative w-full h-96 px-6 mb-4">
+                  <Image
                     src={slide.image}
                     alt={slide.title}
-                    className="w-full h-96 px-6 object-cover rounded-lg mb-4"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    className="rounded-lg object-cover"
+                    priority={index === 0}
                   />
-                  <h2 className="text-2xl font-bold px-6 text-gray-800 mb-2">{slide.category}</h2>
-                  <h3 className="text-xl font-semibold px-6 text-orange-600 mb-4">{slide.title}</h3>
-                  <p className="text-gray-600 mb-6 px-6">{slide.desc}</p>
+                </div>
+                <h2 className="text-2xl font-bold px-6 text-gray-800 mb-2">{slide.category}</h2>
+                <h3 className="text-xl font-semibold px-6 text-orange-600 mb-4">{slide.title}</h3>
+                <p className="text-gray-600 mb-6 px-6">{slide.desc}</p>
 
-                  <div className="group-hover:bg-orange-400 px-2 w-full mt-4">
-                    <div className="p-4">
-                      <div className="mb-2">
-                        <div className="w-full bg-gray-300 rounded-full h-2">
-                          <div
-                            className="bg-sky-500 h-2 rounded-full"
-                            style={{ width: `${percentage}%` }}
-                          />
-                        </div>
-                        <div className="text-right mt-1 text-sm font-medium text-sky-500">
-                          {percentage}%
-                        </div>
+                <div className="group-hover:bg-orange-400 px-2 w-full mt-4">
+                  <div className="p-4">
+                    <div className="mb-2">
+                      <div className="w-full bg-gray-300 rounded-full h-2">
+                        <div
+                          className="bg-sky-500 h-2 rounded-full"
+                          style={{ width: `${percentage}%` }}
+                        />
                       </div>
-                      <div className="flex justify-between text-gray-700 text-sm">
-                        <div>
-                          <span className="font-bold">Raised:</span> ${slide.raised.toLocaleString()}
-                        </div>
-                        <div>
-                          <span className="font-bold">Goal:</span> ${slide.goal.toLocaleString()}
-                        </div>
+                      <div className="text-right mt-1 text-sm font-medium text-sky-500">{percentage}%</div>
+                    </div>
+                    <div className="flex justify-between text-gray-700 text-sm">
+                      <div>
+                        <span className="font-bold">Raised:</span> ${slide.raised.toLocaleString()}
+                      </div>
+                      <div>
+                        <span className="font-bold">Goal:</span> ${slide.goal.toLocaleString()}
                       </div>
                     </div>
                   </div>
-                </motion.div>
-              </AnimatePresence>
+                </div>
+              </motion.div>
             );
           })}
         </div>
 
-        {/* PAGINATION DOTS */}
+        {/* Pagination Dots */}
         <div className="flex justify-center gap-2 mt-8">
           {slides.map((_, index) => (
             <div
@@ -191,13 +172,8 @@ const SlideSection = () => {
               <motion.div
                 className="absolute top-0 left-0 h-full bg-orange-500"
                 initial={{ width: 0 }}
-                animate={{
-                  width: currentIndex === index ? "100%" : 0,
-                }}
-                transition={{
-                  duration: currentIndex === index ? 4 : 0,
-                  ease: "linear",
-                }}
+                animate={{ width: currentIndex === index ? "100%" : 0 }}
+                transition={{ duration: currentIndex === index ? 4 : 0, ease: "linear" }}
               />
             </div>
           ))}

@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 
 import { Pagination, Autoplay } from "swiper/modules";
 import "@fontsource/roboto";
+import Image from "next/image";
 
 const testimonials = [
   {
@@ -87,9 +88,10 @@ const FixedBackgroundComponent = () => {
             1024: { slidesPerView: 3 },
           }}
           pagination={{
-            clickable: true, // Enables clickable pagination dots
-            type: 'bullets', // Ensures the dots are displayed
+            clickable: true,
+            type: "bullets",
           }}
+          className="!pb-8" // Moves pagination bullets up
         >
           {testimonials.map((t, index) => (
             <SwiperSlide key={index}>
@@ -108,10 +110,12 @@ const FixedBackgroundComponent = () => {
 
                 {/* User Info */}
                 <div className="flex items-center gap-4 mt-auto">
-                  <img
+                  <Image
                     src={t.image}
                     alt={t.name}
-                    className="w-18 h-18 rounded-full object-cover"
+                    width={72}
+                    height={72}
+                    className="rounded-full object-cover w-18 h-18" // Ensure consistent size
                   />
                   <div>
                     <h4 className="font-bold text-orange-500">{t.name}</h4>
@@ -124,12 +128,8 @@ const FixedBackgroundComponent = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-
-        
       </div>
-      
     </div>
-    
   );
 };
 

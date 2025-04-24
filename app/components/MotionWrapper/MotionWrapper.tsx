@@ -1,10 +1,14 @@
-// components/MotionWrapper.tsx
-"use client"
-import { motion, useAnimation } from "framer-motion";
+"use client";
+
+import { motion, useAnimation, HTMLMotionProps } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 
-export const MotionWrapper = ({ children }: { children: React.ReactNode }) => {
+interface MotionWrapperProps extends HTMLMotionProps<"div"> {
+  children: React.ReactNode;
+}
+
+export const MotionWrapper = ({ children, className, ...rest }: MotionWrapperProps) => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
@@ -25,6 +29,8 @@ export const MotionWrapper = ({ children }: { children: React.ReactNode }) => {
           transition: { duration: 0.8, ease: "easeOut" },
         },
       }}
+      className={className}
+      {...rest}
     >
       {children}
     </motion.div>

@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 
 const HeroSection = () => {
   const sectionRef = useRef(null);
@@ -13,19 +14,22 @@ const HeroSection = () => {
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8 }}
-      className="flex flex-col  lg:px-20 xl:px-32 pt-10 lg:flex-row items-center justify-center bg-[#faf6f0]"
+      className="flex flex-col lg:px-20 xl:px-32 pt-10 lg:flex-row items-center justify-center bg-[#faf6f0]"
     >
       {/* Image Section */}
       <motion.div
         initial={{ opacity: 0, x: -50 }}
         animate={isInView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.8 }}
-        className="w-full lg:w-1/2"
+        className="w-full lg:w-1/2 relative h-100 " // Added h-80 to set the height for the image
       >
-        <img
+        <Image
           src="/assets/children.jpg"
           alt="Children"
-          className="w-full h-full px-3 object-cover"
+          fill
+          priority // improves performance for above-the-fold content
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          className="object-cover px-3"
         />
       </motion.div>
 

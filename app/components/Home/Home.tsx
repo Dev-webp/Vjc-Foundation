@@ -8,7 +8,6 @@ import Volunteer from "../Volunteer/Volunteer";
 import Testimonal from "../Testimonal/Testimonal";
 import Children from "../Children/Children";
 import Blogcomp from "../Blogcomp/Blogcomp";
-import FadeInOnView from "../FadeInOnView/FadeInOnView"; // adjust path if needed
 import Footer from "../Footer/Footer"
 
 const Home = () => {
@@ -19,31 +18,25 @@ const Home = () => {
         <FormLeft />
       </div>
 
-      {/* Animate each section as it scrolls into view */}
-      <FadeInOnView>
         <Statistics />
-      </FadeInOnView>
-      <FadeInOnView delay={0.1}>
+      
         <Causes />
-      </FadeInOnView>
-      <FadeInOnView delay={0.2}>
+     
         <Charity />
-      </FadeInOnView>
-      <FadeInOnView delay={0.3}>
+      
         <Volunteer />
-      </FadeInOnView>
-      <FadeInOnView delay={0.4}>
+      
+     
         <Testimonal />
-      </FadeInOnView>
-      <FadeInOnView delay={0.5}>
+    
+     
         <Children />
-      </FadeInOnView>
-      <FadeInOnView delay={0.6}>
+     
+     
         <Blogcomp />
-      </FadeInOnView>
-      <FadeInOnView delay={0.7}>
+    
         <Footer />
-      </FadeInOnView>
+     
     </main>
   );
 };

@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { useInView } from "framer-motion";
+import Image from "next/image";
 
 const posts = [
   {
@@ -38,15 +39,25 @@ const posts = [
 const PostCards = () => {
   return (
     <section className="bg-[#f9f6f2] px-6 py-12 lg:px-24">
-      <p
+      <motion.p
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
         className="text-sm text-orange-500 text-center pt-10 uppercase font-semibold mb-2 tracking-widest"
         style={{ fontFamily: "Poppins, sans-serif" }}
       >
         Our Blog
-      </p>
-      <h1 className="text-4xl text-center md:text-5xl pt-3 font-semibold mb-6 font-handwritten">
+      </motion.p>
+      <motion.h1
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        viewport={{ once: true }}
+        className="text-4xl text-center md:text-5xl pt-3 font-semibold mb-6 font-handwritten"
+      >
         Recent From Blog
-      </h1>
+      </motion.h1>
       <div className="grid gap-8 mt-12 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
         {posts.map((post, idx) => {
           const ref = useRef(null);
@@ -61,11 +72,16 @@ const PostCards = () => {
               transition={{ duration: 0.6, delay: idx * 0.2 }}
               className="bg-white rounded-lg shadow-md overflow-hidden"
             >
-              <img
-                src={post.image}
-                alt={post.title}
-                className="w-full h-60 object-cover"
-              />
+              <div className="w-full h-60 relative">
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover"
+                />
+              </div>
+
               <div className="px-6 pb-6 pt-4">
                 <div className="flex items-center space-x-6 text-sm text-gray-500 mb-4">
                   <div className="flex items-center gap-2">
@@ -75,8 +91,8 @@ const PostCards = () => {
                     <span className="text-orange-500">📅</span> {post.date}
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-orange-500">💬</span>{" "}
-                    {post.comments} Comments
+                    <span className="text-orange-500">💬</span> {post.comments}{" "}
+                    Comments
                   </div>
                 </div>
 
