@@ -5,10 +5,9 @@ import Statistics from "../Statistics/Statistics";
 import Causes from "../Causes/Causes";
 import Charity from "../Charity/Charity";
 import Volunteer from "../Volunteer/Volunteer";
-import Testimonal from "../Testimonal/Testimonal";
+import Testimonal from "../Testimonial/Testimonial";
 import Children from "../Children/Children";
 import Blogcomp from "../Blogcomp/Blogcomp";
-import Footer from "../Footer/Footer"
 
 const Home = () => {
   return (
@@ -35,7 +34,7 @@ const Home = () => {
      
         <Blogcomp />
     
-        <Footer />
+        
      
     </main>
   );
