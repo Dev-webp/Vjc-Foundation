@@ -3,6 +3,7 @@ import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BlogPost } from "../BlogData/BlogData";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface BlogListProps {
   posts: BlogPost[];
@@ -10,56 +11,104 @@ interface BlogListProps {
 
 const BlogList: React.FC<BlogListProps> = ({ posts }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 6;
+  const [direction, setDirection] = useState<"left" | "right">("right");
   const blogSectionRef = useRef<HTMLDivElement>(null);
 
+  const postsPerPage = 6;
   const totalPages = Math.ceil(posts.length / postsPerPage);
   const startIndex = (currentPage - 1) * postsPerPage;
   const selectedPosts = posts.slice(startIndex, startIndex + postsPerPage);
 
   const handlePageChange = (page: number) => {
+    if (page === currentPage) return;
+    setDirection(page > currentPage ? "right" : "left");
     setCurrentPage(page);
     blogSectionRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const containerVariants = {
+    enter: (direction: "left" | "right") => ({
+      x: direction === "right" ? 100 : -100,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.7 },
+    },
+    exit: (direction: "left" | "right") => ({
+      x: direction === "right" ? -100 : 100,
+      opacity: 0,
+      transition: { duration: 0.7 },
+    }),
+  };
+
   return (
     <section ref={blogSectionRef} className="py-16 px-6 md:px-20 bg-gray-50">
-      <div className="text-center mb-12">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        viewport={{ once: true }}
+        className="text-center mb-12"
+      >
         <h2 className="text-4xl font-bold mb-4">Our Latest Blogs</h2>
-        <p className="text-gray-600 max-w-xl mx-auto tracking-widest" style={{ fontFamily: 'Poppins, sans-serif' }}>
+        <p
+          className="text-gray-600 max-w-xl mx-auto tracking-widest"
+          style={{ fontFamily: "Poppins, sans-serif" }}
+        >
           Stay updated with our latest articles, insights, and news.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-        {selectedPosts.map((post) => (
-          <div
-            key={post.id}
-            className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-500 group"
-          >
-            <div className="relative h-60 w-full overflow-hidden">
-              <Image
-                src={post.imageUrl}
-                alt={post.title}
-                layout="fill"
-                objectFit="cover"
-                className="group-hover:scale-110 transition-transform duration-500"
-              />
-            </div>
-            <div className="p-6">
-              <h3 className="text-xl font-semibold mb-2 group-hover:text-orange-600 transition-colors duration-300">
-                {post.title}
-              </h3>
-              <p className="text-gray-600 mb-4 tracking-wider" style={{ fontFamily: 'Poppins, sans-serif' }}>{post.excerpt}</p>
-              <Link href={`/blog/${post.slug}`}>
-                <span className="text-orange-500 font-medium hover:underline cursor-pointer">
-                  Read More →
-                </span>
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
+      <AnimatePresence custom={direction} mode="wait">
+        <motion.div
+          key={currentPage} // important for AnimatePresence to work
+          className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3"
+          variants={containerVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          custom={direction}
+        >
+          {selectedPosts.map((post, index) => (
+            <motion.div
+              key={post.id}
+              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-500 group"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <div className="relative h-60 w-full overflow-hidden">
+                <Image
+                  src={post.imageUrl}
+                  alt={post.title}
+                  layout="fill"
+                  objectFit="cover"
+                  className="group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2 group-hover:text-orange-600 transition-colors duration-300">
+                  {post.title}
+                </h3>
+                <p
+                  className="text-gray-600 mb-4 tracking-wider"
+                  style={{ fontFamily: "Poppins, sans-serif" }}
+                >
+                  {post.excerpt}
+                </p>
+                <Link href={`/blog/${post.slug}`}>
+                  <span className="text-orange-500 font-medium hover:underline cursor-pointer">
+                    Read More →
+                  </span>
+                </Link>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </AnimatePresence>
 
       {/* Pagination */}
       <div className="flex justify-center items-center mt-12 space-x-4">
