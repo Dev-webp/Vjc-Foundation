@@ -67,7 +67,7 @@ const BlogList: React.FC<BlogListProps> = ({ posts }) => {
           <button
             key={index + 1}
             onClick={() => handlePageChange(index + 1)}
-            className={`w-10 h-10 rounded-full flex items-center justify-center border ${
+            className={`w-10 h-10 cursor-pointer rounded-full flex items-center justify-center border ${
               currentPage === index + 1
                 ? "bg-orange-500 text-white"
                 : "bg-white text-gray-700"
