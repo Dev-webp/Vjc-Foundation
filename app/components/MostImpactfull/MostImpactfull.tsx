@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const AwardSection = () => {
   return (
-    <section className="flex flex-col bg-white py-10   lg:flex-row w-full">
+    <section className="flex flex-col bg-[#faf6f0] py-20   lg:flex-row w-full">
       {/* Left side content */}
       <div className="flex flex-col justify-center px-4 py-20 lg:px-16 xl:px-32 bg-[#faf6f0] p-10 lg:w-1/2">
         <div className="max-w-lg mx-auto lg:mx-0">

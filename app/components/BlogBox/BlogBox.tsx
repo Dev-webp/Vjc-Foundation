@@ -1,7 +1,8 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams, useRouter } from "next/navigation";
 import { BlogPost } from "../BlogData/BlogData";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -10,12 +11,18 @@ interface BlogListProps {
 }
 
 const BlogList: React.FC<BlogListProps> = ({ posts }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [direction, setDirection] = useState<"left" | "right">("right");
   const blogSectionRef = useRef<HTMLDivElement>(null);
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   const postsPerPage = 6;
   const totalPages = Math.ceil(posts.length / postsPerPage);
+
+  // Read page from URL or default to 1
+  const initialPage = parseInt(searchParams.get("page") || "1", 10);
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [direction, setDirection] = useState<"left" | "right">("right");
+
   const startIndex = (currentPage - 1) * postsPerPage;
   const selectedPosts = posts.slice(startIndex, startIndex + postsPerPage);
 
@@ -24,7 +31,12 @@ const BlogList: React.FC<BlogListProps> = ({ posts }) => {
     setDirection(page > currentPage ? "right" : "left");
     setCurrentPage(page);
     blogSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+    router.replace(`?page=${page}`);
   };
+
+  useEffect(() => {
+    setCurrentPage(initialPage); // sync if URL changes
+  }, [initialPage]);
 
   const containerVariants = {
     enter: (direction: "left" | "right") => ({
@@ -45,6 +57,7 @@ const BlogList: React.FC<BlogListProps> = ({ posts }) => {
 
   return (
     <section ref={blogSectionRef} className="py-16 px-6 md:px-20 bg-gray-50">
+      {/* Section header */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -61,9 +74,10 @@ const BlogList: React.FC<BlogListProps> = ({ posts }) => {
         </p>
       </motion.div>
 
+      {/* Animated grid */}
       <AnimatePresence custom={direction} mode="wait">
         <motion.div
-          key={currentPage} // important for AnimatePresence to work
+          key={currentPage}
           className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3"
           variants={containerVariants}
           initial="enter"
