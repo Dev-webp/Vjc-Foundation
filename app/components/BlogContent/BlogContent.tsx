@@ -79,8 +79,8 @@ const BlogContent: React.FC<BlogContentProps> = ({ slug }) => {
   return (
     <div className="text-gray-800 mt-6">
       <div className="text-center p-8 md:p-12 lg:px-28 py-10 xl:px-40">
-        <h1 className="text-2xl md:text-3xl text-orange-600 font-bold mb-6">{title}</h1>
-        <p className="tracking-wider leading-7" style={{ fontFamily: "Poppins, sans-serif" }}>{content}</p>
+        <h1 className="text-2xl lg:text-3xl font-bold mb-4 text-orange-600">{title}</h1>
+        <p className="text-black tracking-widest leading-7" style={{ fontFamily: "Poppins, sans-serif" }}>{content}</p>
       </div>
      
     </div>

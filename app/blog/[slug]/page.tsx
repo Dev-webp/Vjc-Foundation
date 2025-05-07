@@ -5,6 +5,8 @@ import Image from "next/image";
 import { blogPosts } from "../../components/BlogData/BlogData";
 import BlogContent from "@/app/components/BlogContent/BlogContent";
 import Blogboy from "../../components/Blogboy/Blogboy";
+import Blogbanner from "../../components/Blogbanner/Blogbanner"
+import Bloghunger from "../../components/Bloghunger/Bloghunger"
 
 const BlogDetail = () => {
   const params = useParams();
@@ -39,8 +41,11 @@ const BlogDetail = () => {
       {/* === Blog content === */}
       <div className="relative z-10">
         <BlogContent slug={slug || ""} />
+        <Blogbanner></Blogbanner>
         <Blogboy />
+        <Bloghunger></Bloghunger>
       </div>
+     
     </div>
   );
 };
